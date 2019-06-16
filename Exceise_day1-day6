@@ -1,0 +1,97 @@
+Day1、字符串操作
+
+a = "12345678"
+b = ''
+b += a[-1] 
+b += a[0]
+b += a[8:7:1]
+b += a[3::10]
+b += a[7:6:-4]
+print(b)
+答案：8148
+
+字符数组的下标，从左往右是从0开始，从右往左是从-1开始，然后取值a[fr:to:step] 的时候，是从下标为fr 的到to -1（step >  0） 或者to + 1(step < 0)
+
+def add(x,y):
+    return x + y
+def muti(x,y):
+    print x * y
+add(1,2)
+print(add(2,3))
+muti(3,4)
+print(muti(4,5))
+
+结果：
+6
+12
+20
+None
+最后一行是因为我们打印一个没有返回值的函数的执行结果，就会得到None
+
+Day4：嵌套函数
+
+def sq(func,x):
+    y = x**2
+    return func(y)
+def f(x):
+    return x**2
+calc = sq(f,2)
+print(calc)
+输出的结果是：16，初学者把作为变量传递过来的函数当做一般变量处理就可以了。在其他的语言中，有block一说，就是在函数参数中传递个代码块。也是类似的效果。但是这里的函数执行是异步的，也就是说一个函数执行结束之后，它里面嵌套的函数可能还在执行。
+
+Day5  List的操作,题目统一问题是：给出执行结果
+1：
+l1 = ['bacon','eggs']
+l2 = ["toast",'jam']
+brunch = l1
+l1.append('juice')
+brunch.extend(l2)
+print brunch
+
+结果猜测：
+A: [‘bacon', 'eggs', 'toast', 'jam']
+B: [‘bacon', ‘eggs’,’juice’,'toast', ‘jam']
+C: [‘bacon', ‘eggs’,’juice’,[‘toast', ‘jam’]]
+D: [‘bacon', 'eggs', [‘toast', ‘jam']]
+结果是：
+B ['bacon', 'eggs', 'juice', 'toast', 'jam']
+两个关键点： 
+一： 当 a = ### ，b = a 时。一旦b改变， a也会改变，这个仍然和Python的编译原理有关。 b只是一个指针，没有独立的存储空间，所以给他赋值之后，他就指向了这个值。
+
+二:extend 是把列表的元素全部添加进另一个列表， append是把任何对象当做一个元素添加进列表里面
+
+2 
+l1 = ['re']
+l2 = ['mi']
+l3 = ['do']
+l4 = l1 + l2
+l3.extend(l4)
+l3.sort()
+del(l3[0])
+l3.append(['fa','la'])
+print l3
+结果：[‘mi’,’re’,[‘fa’,’la’]]
+
+
+3 
+ l = ['life','answer',42,0]
+for thing in l:
+    if thing == 0:
+        l[thing] = 'universe'
+    elif thing == 42:
+        l[1] = 'everything'
+print l
+结果：['universe', 'everything', 42, 0]
+其中关键一句是，l[thing] = ‘universe’，其实是证明了python的基础类型的通用性，哪怕是从列表中提取出来的元素，只要是整形的，就能用于列表下标
+
+4 
+
+def always_sunny(t1,t2):
+    sun  = ("sunny",'sun')
+    first = t1[0] + t2[0]
+    return (sun[0],first)
+a = always_sunny((‘cloudy’),(‘cold’))
+print a 
+
+答案：(“sunny”,”cc”)
+知识点就一个：在(‘cloudy’)里，如果没有逗号，那么就相当于字符串
