@@ -81,3 +81,46 @@ self.x = x
 
 python有一个打印自己的信息的方法
 _str_当然，你可以自己定义并重写这个方法
+
+class Fraction(object):
+    def __init__(self,numerator,denominator):
+        self.denominator = denominator
+        self.numerator = numerator
+    def __add__(self,object):
+        top  = self.numerator * object.denominator + self.denominator * object.numerator
+        bott = self.denominator * object.denominator
+        return top / bott
+    def __float__(self):
+        print 'hah'
+        return float(self.numerator) / self.denominator
+    def __str__(self):
+        return str(self.numerator)+"/"+str(self.denominator)
+    def inverse(self):
+        return Fraction(self.denominator,self.numerator)
+a = Fraction(3,4)
+b = Fraction(1,3)
+c = a + b 
+print c #c是一个返回值的和，所以是一个整形值
+print float(c) #c的浮点型结果
+print float(a)
+print (Fraction.__float__(a)) #调用Fraction的float函数，以Fraction的实例a做参数，返回a 的浮点型结果
+print a #调用str 
+print(float(a.inverse())) #返回一个新的Fraction对象
+#其中比较难理解的是 print float(a) 和 print(float(a.inverse())) 只要是使用了float符号强制转换，
+#就会调用实例对象的__float__函数
+
+面向对象的威力
+同一个bundle内共享
+属性
+操作这些属性的流程
+用抽象去区分如何使用对象和如何实施对象
+通过继承建立层级属性
+创建python基础类的顶级类
+Lecture8 习题
+
+class Car(object):
+	def __init__(self,w,d):
+		self.w = w
+		self.d = d
+		self.color = “”
+这里第三个self.color = “” 虽然init函数里面没有对应的形参，但是init函数在作用就是用来初始化变量的。注意这里的每一个关键字，self.color = “” self不能缺失，后面的“”更是要注意格式不能错
